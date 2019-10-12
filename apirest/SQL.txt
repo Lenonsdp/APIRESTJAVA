@@ -1,0 +1,15 @@
+create database lenon;
+use lenon;
+
+insert into contato (cidade, estado, nome, pais, telefone) 
+values ("Garibaldi", "Rio grande do sul", "Lenon Szynwelski de Paula", "Brasil", "54996844390"),
+("Garibaldi", "Rio grande do sul", "Lenon Szynwelski de Paula", "Brasil", "54996844390"),
+("Garibaldi", "Rio grande do sul", "Lenon Szynwelski de Paula", "Brasil", "54996844390"),
+("Garibaldi", "Rio grande do sul", "Lenon Szynwelski de Paula", "Brasil", "54996844390"),
+("Garibaldi", "Rio grande do sul", "Lenon Szynwelski de Paula", "Brasil", "54996844390"),
+("Garibaldi", "Rio grande do sul", "Lenon Szynwelski de Paula", "Brasil", "54996844390");
+
+ALTER TABLE contato
+MODIFY id bigint(10) not null auto_increment; 
+
+select * from contato
