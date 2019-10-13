@@ -15,16 +15,16 @@ public class Contato implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	protected static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	protected long id;
 
-	private String nome;
-	private String cidade;
-	private String estado;
-	private String pais;
-	private int telefone;
+	protected String nome;
+	protected String cidade;
+	protected String estado;
+	protected String pais;
+	protected int telefone;
 
 	public String getNome() {
 		return nome;
