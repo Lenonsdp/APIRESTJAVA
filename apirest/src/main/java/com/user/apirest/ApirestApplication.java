@@ -1,4 +1,4 @@
-package com.contatos.apirest;
+package com.user.apirest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
