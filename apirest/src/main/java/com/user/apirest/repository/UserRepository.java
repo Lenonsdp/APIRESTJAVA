@@ -11,6 +11,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.user.apirest.model.User;
 
-public interface UserRepository extends JpaRepository<User, String> {
-	Optional<User> findById(String id);
+public interface UserRepository extends JpaRepository<User, Long> {
+	Optional<User> findByEmailAndSenha(String email, String senha);
 }

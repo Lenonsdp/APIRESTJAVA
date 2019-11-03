@@ -30,10 +30,10 @@ public class UserResource {
 	}
 
 	@CrossOrigin
-	@GetMapping("/user/{id}/{senha}")
-	public Optional<User> GetUser(@PathVariable(value = "id") String id, @PathVariable(value = "senha") String senha) {
+	@GetMapping("/user/{email}/{senha}")
+	public Optional<User> GetUser(@PathVariable(value = "email") String email, @PathVariable(value = "senha") String senha) {
 		
-		return userrepository.findById(id);
+		return userrepository.findByEmailAndSenha(email, senha);
 	}
 
 }
