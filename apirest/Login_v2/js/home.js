@@ -10,7 +10,6 @@ $(function() {
 	// $('#placa').inputmask({mask: 'AAA-9999'});
 	
 	var idAutomovel = obterIdUrl();
-	console.log(idAutomovel);
 	if (idAutomovel != false) {
 		editarAutomovel(idAutomovel);
 		$('#salvar').val('Editar');
@@ -46,7 +45,6 @@ function vincularEventos() {
 	$('.cancelar').on('click', function() {
 		$('#box').show();
 		$('#box_incluir').hide();
-		$('#box_imprimir').hide();
 		$('#coluna_acoes_lista').show();
 		$('#incluir_pedido').show();
 		listar();
@@ -55,22 +53,25 @@ function vincularEventos() {
 
 	$('#excluir').on('click', function() {
 		if (confirm('Deseja realmente excluir?')) {
-			var listaExcluir =  [];
+			var listaExcluir =  '';
 
 			$('#tabela_automoveis tbody input:checkbox:checked').each(function() {
-				listaExcluir.push($(this).parents('tr').attr('data-id'));
+				listaExcluir = ($(this).parents('tr').attr('data-id'));
 			});
 
 			if (!listaExcluir.length) {
 				alert('Selecione algum veículo para exclusão');
 			} else {
 				$.ajax({
-					'type': 'POST',
-					'url': 'http://localhost/cadastro_automoveis/controller/recebeDadosFormularios.php',
-					'data': {
-						'action': 'excluir',
-						'listaExcluir': listaExcluir
+					type: 'DELETE',
+					headers:{    
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+						'Access-Control-Allow-Origin': '*' ,
+						'Accept' : "application/json",
+						'Content-Type': "application/json"
 					},
+					url: 'http://127.0.0.1:8080/api/carro/' + listaExcluir,	
 					'complete': function() {
 						setTimeout(function() {$('#box_excluir').fadeIn();}, 1000);
 						setTimeout(function() {$('#box_excluir').fadeOut();}, 3000);
@@ -79,28 +80,6 @@ function vincularEventos() {
 				});
 			}
 		}
-	});
-
-	$('#imprimir').on('click', function(){
-		$('#box').hide();
-		$('#box_incluir').hide();
-		$('#coluna_acoes_lista').hide();
-		$('#incluir_pedido').hide();
-		$('#box_imprimir').show();
-		obterDadosAutomovel();
-	});
-
-	$('#impressao').on('click', function() {
-		$('header, footer, #coluna_acoes, #box_imprimir input, #box_imprimir #impressao').hide();
-		$('#lista_imprimir').css('margin-top', 0);
-
-		setTimeout(function() {
-			window.print();
-		}, 1);
-
-		setTimeout(function() {
-			window.location.href = 'http://localhost/cadastro_automoveis/view/paginas/home.php';
-		}, 1);
 	});
 
 	$('#salvar').on('click', function() {
@@ -114,36 +93,69 @@ function vincularEventos() {
 			$('input:checkbox:checked').each(function() {
 				listaAcessorios.push($(this).val());
 			});
-
-			$.ajax({
-				'type': 'POST',
-				'url': 'http://localhost/cadastro_automoveis/controller/recebeDadosFormularios.php',
-				'data': {
-					'action': 'salvarAutomovel',
-					'idAutomovel': idAutomovel,
-					'descricao': $('#descricao').val(),
-					'placa': $('#placa').val(),
-					'renavam': $('#renavam').val(),
-					'ano_modelo': $('#ano_modelo').val(),
-					'ano_fabricacao': $('#ano_fabricacao').val(),
-					'cor': $('#cor').val(),
-					'km': $('#km').val(),
-					'marca': $('#marca').val(),
-					'preco': $('#preco').val(),
-					'preco_fipe': $('#preco_fipe').val(),
-					'acessorios': listaAcessorios
-				},	
-				'complete': function(resp) {
-					$('#box').show(),
-					$('#box_incluir').hide(),
-					$('#coluna_acoes_lista').show(),
-					$('#incluir_pedido').show(),
-					setTimeout(function() {$('#box_sucesso').fadeIn();}, 1000);
-					setTimeout(function() {$('#box_sucesso').fadeOut();}, 3000);
-					listar();
-					window.location.hash = '';
-				}
-			});
+			var json = {
+				"descricao": $("#descricao").val(),
+				"placa": $("#placa").val(),
+				"renavam": $("#renavam").val(),
+				"anoModelo": $("#ano_modelo").val(),
+				"anoFabricacao": $("#ano_fabricacao").val(),
+				"cor": $("#cor").val(),
+				"km": $("#km").val(),
+				"marca": $("#marca").val(),
+				"preco": $("#preco").val(),
+				"preco_fipe": $("#preco_fipe").val()
+			}
+			if (idAutomovel) {
+				$.ajax({
+					type: 'PUT',
+					headers:{    
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+						'Access-Control-Allow-Origin': '*' ,
+						'Accept' : "application/json",
+						'Content-Type': "application/json"
+					},
+					url: 'http://127.0.0.1:8080/api/carro/' + idAutomovel,		
+					dataType: 'json',	
+					'data': JSON.stringify(json),
+					'complete': function(resp) {
+						console.log(resp);
+						$('#box').show(),
+						$('#box_incluir').hide(),
+						$('#coluna_acoes_lista').show(),
+						$('#incluir_pedido').show(),
+						setTimeout(function() {$('#box_sucesso').fadeIn();}, 1000);
+						setTimeout(function() {$('#box_sucesso').fadeOut();}, 3000);
+						listar();
+						window.location.hash = '';
+					}
+				});
+			} else {
+				$.ajax({
+					type: 'POST',
+					headers:{    
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+						'Access-Control-Allow-Origin': '*' ,
+						'Accept' : "application/json",
+						'Content-Type': "application/json"
+					},
+					url: 'http://127.0.0.1:8080/api/carro/',		
+					dataType: 'json',	
+					'data': JSON.stringify(json),
+					'complete': function(resp) {
+						console.log(resp);
+						$('#box').show(),
+						$('#box_incluir').hide(),
+						$('#coluna_acoes_lista').show(),
+						$('#incluir_pedido').show(),
+						setTimeout(function() {$('#box_sucesso').fadeIn();}, 1000);
+						setTimeout(function() {$('#box_sucesso').fadeOut();}, 3000);
+						listar();
+						window.location.hash = '';
+					}
+				});
+			}
 		} else {
 			$.each(camposObrigatorios, function(i, seletor) {
 				if ($(seletor).val().trim() == '') {
@@ -156,7 +168,7 @@ function vincularEventos() {
 					}
 				}
 			});
-			alert('Preencha os campos obrigatórios.');
+			// alert('Preencha os campos obrigatórios.');
 		}
 	});
 
@@ -173,7 +185,6 @@ function vincularEventos() {
 	});
 
 	$('#sair').on('click', function() {
-		console.log("suahushauhsuhas");
 		window.location.href = 'http://localhost/Login_v2/index.html';
 		// $.ajax({
 		// 	'type': 'POST',
@@ -256,29 +267,39 @@ function inicializarSelectsMarca(selectors) {
 }
 
 function listar() {
-	// $.ajax({
-	// 	'type': 'POST',
-	// 	'url': 'http://localhost/cadastro_automoveis/controller/recebeDadosFormularios.php',
-	// 	'data': {
-	// 		'action': 'listar',
-	// 		'pesquisar': $('#pesquisar').val(),
-	// 		'ano_modelo': $('#filtro_ano_modelo').val(),
-	// 		'ano_fabricacao': $('#filtro_ano_fabricacao').val(),
-	// 		'marca': $('#filtro_marca').val(),
-	// 		'km_de': $('#km_de').val(),
-	// 		'km_ate': $('#km_ate').val(),
-	// 		'tipo_preco': $('#tipo_preco').val(),
-	// 		'preco_de': $('#preco_de').val(),
-	// 		'preco_ate': $('#preco_ate').val(),
-	// 		'pagina': pagina
-	// 	},	
+	$.ajax({
+		type: 'GET',
+		headers:{    
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+			'Access-Control-Allow-Origin': '*' 
+		},
+		url: 'http://127.0.0.1:8080/api/carros/',		
+		dataType: 'json',		
+		'success': function(resp) {
+			// var dados = $.parseJSON(resp);
+			// ultimaPagina = Math.ceil(dados['totalRegistros'] / dados['paginacao']) - 1;
+			mostrarDadosTabela(resp);
+		}
+		// 'data': {
+		// 	'action': 'listar',
+		// 	'pesquisar': $('#pesquisar').val(),
+		// 	'ano_modelo': $('#filtro_ano_modelo').val(),
+		// 	'ano_fabricacao': $('#filtro_ano_fabricacao').val(),
+		// 	'marca': $('#filtro_marca').val(),
+		// 	'km_de': $('#km_de').val(),
+		// 	'km_ate': $('#km_ate').val(),
+		// 	'tipo_preco': $('#tipo_preco').val(),
+		// 	'preco_de': $('#preco_de').val(),
+		// 	'preco_ate': $('#preco_ate').val(),
+		// 	'pagina': pagina
+		// },	
 	// 	'success': function(resp) {
 	// 		var dados = $.parseJSON(resp);
 	// 		ultimaPagina = Math.ceil(dados['totalRegistros'] / dados['paginacao']) - 1;
 	// 		mostrarDadosTabela(dados['automoveis']);
-	// 		mostrarDadosTabelaImprimir(dados['automoveis']);
 	// 	}
-	// });
+	});
 }
 
 function mostrarDadosTabela(automoveis) {
@@ -293,27 +314,6 @@ function mostrarDadosTabela(automoveis) {
 				$('<td>', {'text': automovel.descricao}),
 				$('<td>', {'text': automovel.placa}),
 				$('<td>', {'text': automovel.marca})
-			)
-		);                        
-	});
-};
-
-function mostrarDadosTabelaImprimir(automoveis) {
-	$('#lista_imprimir tbody').empty();
-	
-	$.each(automoveis, function(key, automovel) {
-		$('#lista_imprimir tbody').append(
-			$('<tr>').append(
-				$('<td>', {'text': automovel.descricao}),
-				$('<td>', {'text': automovel.placa}),
-				$('<td>', {'text': automovel.renavam}),
-				$('<td>', {'text': automovel.ano_modelo}),
-				$('<td>', {'text': automovel.ano_fabricacao}),
-				$('<td>', {'text': automovel.cor}),
-				$('<td>', {'text': automovel.km}),
-				$('<td>', {'text': automovel.marca}),
-				$('<td>', {'text': automovel.preco}),
-				$('<td>', {'text': automovel.preco_fipe})
 			)
 		);                        
 	});
@@ -338,28 +338,25 @@ function editarAutomovel(id) {
 
 function obterDadosAutomovel(idAutomovel) {
 	$.ajax({
-		'type': 'POST',
-		'url': 'http://localhost/cadastro_automoveis/controller/recebeDadosFormularios.php',
-		'data': {
-			'action': 'obterAutomovel',
-			'id': parseInt(idAutomovel)
+		type: 'GET',
+		headers:{    
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+			'Access-Control-Allow-Origin': '*' 
 		},
+		url: 'http://127.0.0.1:8080/api/carro/' + idAutomovel,
 		success: function(automovel) {
-			var dados = $.parseJSON(automovel);
-			$('#descricao').val(dados[0].descricao);
-			$('#placa').val(dados[0].placa);
-			$('#renavam').val(dados[0].renavam);
-			$('#ano_modelo').val(dados[0].ano_modelo);
-			$('#ano_fabricacao').val(dados[0].ano_fabricacao);
-			$('#cor').val(dados[0].cor);
-			$('#km').val(dados[0].km);
-			$('#marca').val(dados[0].marca);
-			$('#preco').val(dados[0].preco);
-			$('#preco_fipe').val(dados[0].preco_fipe);
-			$('#componentes input[type="checkbox"]').prop('checked', false);
-			$.each(dados[0].acessorios, function(){
-				$('#componentes input[value="' + this + '"]').prop('checked', true);
-			});
+			console.log(automovel);
+			$('#descricao').val(automovel.descricao);
+			$('#placa').val(automovel.placa);
+			$('#renavam').val(automovel.renavam);
+			$('#ano_modelo').val(automovel.anoModelo);
+			$('#ano_fabricacao').val(automovel.anofabricacao); //camelcase
+			$('#cor').val(automovel.cor);
+			$('#km').val(automovel.km);
+			$('#marca').val(automovel.marca);
+			$('#preco').val(automovel.preco);
+			$('#preco_fipe').val(automovel.preco_fipe);
 		}
 	});
 }
