@@ -184,10 +184,6 @@ function vincularEventos() {
 		});
 	});
 
-	$('#sair').on('click', function() {
-		window.location.href = 'http://localhost/Login_v2/index.html';
-	});
-
 	$(document).on('click', '#tabela_automoveis tbody tr td:not(:first-child)', function() {
 		var idAutomovel = $(this).parent().attr('data-id');
 		window.location.hash = idAutomovel; 

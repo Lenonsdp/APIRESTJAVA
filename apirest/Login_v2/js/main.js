@@ -41,7 +41,7 @@
 					if (data) {
 						window.location.href = 'http://localhost/Login_v2/views/home.html';
 					} else {
-						alert('Usuário e senha inválidos.');
+						alert('Usuário ou senha inválidos.');
 					}
 				}
 			});
@@ -123,7 +123,11 @@
 					url: 'http://127.0.0.1:8080/api/user/'+$('#email').val()+'/'+$('#senha').val(),		
 					dataType: 'json',
 					success: function (data) {
-						console.log(data);
+						if (data) {
+							window.location.href = 'http://localhost/Login_v2/views/home.html';
+						} else {
+							alert('Usuário ou senha inválidos.');
+						}
 					}
 				});
 			} else {
