@@ -168,7 +168,7 @@ function vincularEventos() {
 					}
 				}
 			});
-			// alert('Preencha os campos obrigatórios.');
+			alert('Preencha os campos obrigatórios.');
 		}
 	});
 
@@ -186,16 +186,6 @@ function vincularEventos() {
 
 	$('#sair').on('click', function() {
 		window.location.href = 'http://localhost/Login_v2/index.html';
-		// $.ajax({
-		// 	'type': 'POST',
-		// 	'url': 'http://localhost/cadastro_automoveis/controller/valida_login.php',
-		// 	'data': {
-		// 		'action': 'deslogar'
-		// 	},
-		// 	'complete': function() {
-		// 		window.location.href = 'http://localhost/cadastro_automoveis/view/paginas/index.php';
-		// 	}
-		// });
 	});
 
 	$(document).on('click', '#tabela_automoveis tbody tr td:not(:first-child)', function() {
@@ -277,28 +267,9 @@ function listar() {
 		url: 'http://127.0.0.1:8080/api/carros/',		
 		dataType: 'json',		
 		'success': function(resp) {
-			// var dados = $.parseJSON(resp);
 			// ultimaPagina = Math.ceil(dados['totalRegistros'] / dados['paginacao']) - 1;
 			mostrarDadosTabela(resp);
 		}
-		// 'data': {
-		// 	'action': 'listar',
-		// 	'pesquisar': $('#pesquisar').val(),
-		// 	'ano_modelo': $('#filtro_ano_modelo').val(),
-		// 	'ano_fabricacao': $('#filtro_ano_fabricacao').val(),
-		// 	'marca': $('#filtro_marca').val(),
-		// 	'km_de': $('#km_de').val(),
-		// 	'km_ate': $('#km_ate').val(),
-		// 	'tipo_preco': $('#tipo_preco').val(),
-		// 	'preco_de': $('#preco_de').val(),
-		// 	'preco_ate': $('#preco_ate').val(),
-		// 	'pagina': pagina
-		// },	
-	// 	'success': function(resp) {
-	// 		var dados = $.parseJSON(resp);
-	// 		ultimaPagina = Math.ceil(dados['totalRegistros'] / dados['paginacao']) - 1;
-	// 		mostrarDadosTabela(dados['automoveis']);
-	// 	}
 	});
 }
 
@@ -346,7 +317,6 @@ function obterDadosAutomovel(idAutomovel) {
 		},
 		url: 'http://127.0.0.1:8080/api/carro/' + idAutomovel,
 		success: function(automovel) {
-			console.log(automovel);
 			$('#descricao').val(automovel.descricao);
 			$('#placa').val(automovel.placa);
 			$('#renavam').val(automovel.renavam);
