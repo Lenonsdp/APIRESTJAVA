@@ -35,7 +35,7 @@
 					'Content-Type': 'application/json',
 					'Access-Control-Allow-Origin': '*' 
 				},
-				url: 'http://127.0.0.1:8080/api/user/'+$('#email').val()+'/'+$('#senha').val(),		
+				url: 'https://gestaocarro.herokuapp.com/api/user/'+$('#email').val()+'/'+$('#senha').val(),		
 				dataType: 'json',
 				success: function (data) {
 					if (data) {
@@ -78,7 +78,7 @@
 							'Accept' : "application/json",
 							'Content-Type': "application/json"
 						},
-						url: 'http://127.0.0.1:8080/api/user/',		
+						url: 'https://gestaocarro.herokuapp.com/api/user/',		
 						dataType: 'json',	
 						'data': JSON.stringify(json),
 						'complete': function(resp) {							
@@ -120,7 +120,7 @@
 						'Content-Type': 'application/json',
 						'Access-Control-Allow-Origin': '*' 
 					},
-					url: 'http://127.0.0.1:8080/api/user/'+$('#email').val()+'/'+$('#senha').val(),		
+					url: 'https://gestaocarro.herokuapp.com/api/user/'+$('#email').val()+'/'+$('#senha').val(),		
 					dataType: 'json',
 					success: function (data) {
 						if (data) {

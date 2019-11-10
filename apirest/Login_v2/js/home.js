@@ -71,7 +71,7 @@ function vincularEventos() {
 						'Accept' : "application/json",
 						'Content-Type': "application/json"
 					},
-					url: 'http://127.0.0.1:8080/api/carro/' + listaExcluir,	
+					url: 'https://gestaocarro.herokuapp.com/api/carro/' + listaExcluir,	
 					'complete': function() {
 						setTimeout(function() {$('#box_excluir').fadeIn();}, 1000);
 						setTimeout(function() {$('#box_excluir').fadeOut();}, 3000);
@@ -115,7 +115,7 @@ function vincularEventos() {
 						'Accept' : "application/json",
 						'Content-Type': "application/json"
 					},
-					url: 'http://127.0.0.1:8080/api/carro/' + idAutomovel,		
+					url: 'https://gestaocarro.herokuapp.com/api/carro/' + idAutomovel,		
 					dataType: 'json',	
 					'data': JSON.stringify(json),
 					'complete': function(resp) {
@@ -140,7 +140,7 @@ function vincularEventos() {
 						'Accept' : "application/json",
 						'Content-Type': "application/json"
 					},
-					url: 'http://127.0.0.1:8080/api/carro/',		
+					url: 'https://gestaocarro.herokuapp.com/api/carro/',		
 					dataType: 'json',	
 					'data': JSON.stringify(json),
 					'complete': function(resp) {
@@ -198,10 +198,10 @@ function vincularEventos() {
 	});
 
 	$('#proximo').on('click', function() {
-		if (pagina != ultimaPagina) {
-			pagina++;
-			listar();
-		}
+		// if (pagina != ultimaPagina) {
+		// 	pagina++;
+		// 	listar();
+		// }
 
 
 		return false;
@@ -260,9 +260,10 @@ function listar() {
 			'Content-Type': 'application/json',
 			'Access-Control-Allow-Origin': '*' 
 		},
-		url: 'http://127.0.0.1:8080/api/carros/',		
+		url: 'https://gestaocarro.herokuapp.com/api/carros/',		
 		dataType: 'json',		
 		'success': function(resp) {
+			console.log(resp);
 			// ultimaPagina = Math.ceil(dados['totalRegistros'] / dados['paginacao']) - 1;
 			mostrarDadosTabela(resp);
 		}
@@ -311,7 +312,7 @@ function obterDadosAutomovel(idAutomovel) {
 			'Content-Type': 'application/json',
 			'Access-Control-Allow-Origin': '*' 
 		},
-		url: 'http://127.0.0.1:8080/api/carro/' + idAutomovel,
+		url: 'https://gestaocarro.herokuapp.com/api/carro/' + idAutomovel,
 		success: function(automovel) {
 			$('#descricao').val(automovel.descricao);
 			$('#placa').val(automovel.placa);
