@@ -42,7 +42,7 @@
 						</span>
 
 						<div class="wrap-input100 validate-input" data-validate = "E-mail inválido xxx@xx">
-							<input id="email" class="input100" type="text" name="email">
+							<input id="email" class="input100 logins" type="text" name="email">
 							<span class="focus-input100" data-placeholder="Email"></span>
 						</div>
 
@@ -50,7 +50,7 @@
 							<span class="btn-show-pass">
 								<i class="zmdi zmdi-eye"></i>
 							</span>
-							<input id="senha" class="input100" type="password" name="pass">
+							<input id="senha" class="input100 logins" type="password" name="pass">
 							<span class="focus-input100" data-placeholder="Password"></span>
 						</div>
 
@@ -68,7 +68,7 @@
 								Não tem uma conta?
 							</span>
 
-							<a class="txt2" href="#">
+							<a id="cadastro" class="txt2" href="#">
 								Cadastre
 							</a>
 						</div>
@@ -76,7 +76,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div id="initCadastro">
+		<div id="initCadastro" style="display: none;">
 			<div class="container-login100">
 				<div class="wrap-login100">
 					<div id='loginCadastro' class="login100-form ">
@@ -88,7 +88,7 @@
 						</span>
 
 						<div class="wrap-input100 validate-input" data-validate = "E-mail inválido xxx@xx">
-							<input id="emailCadastro" class="input100" type="text" name="emailCadastro">
+							<input id="emailCadastro" class="input100 loginsCadastro" type="text" name="emailCadastro">
 							<span class="focus-input100" data-placeholder="Email"></span>
 						</div>
 
@@ -96,14 +96,14 @@
 							<span class="btn-show-pass">
 								<i class="zmdi zmdi-eye"></i>
 							</span>
-							<input id="senhaCadastro" class="input100" type="password" name="pass">
+							<input id="senhaCadastro" class="input100 loginsCadastro" type="password" name="pass">
 							<span class="focus-input100" data-placeholder="Senha"></span>
 						</div>
 						<div class="wrap-input100 validate-input" data-validate="Digite sua senha">
 							<span class="btn-show-pass">
 								<i class="zmdi zmdi-eye"></i>
 							</span>
-							<input id="senhaCadastroRepeat" class="input100" type="password" name="pass">
+							<input id="senhaCadastroRepeat" class="input100 loginsCadastro" type="password" name="pass">
 							<span class="focus-input100" data-placeholder="Repetir Senha"></span>
 						</div>
 
@@ -115,10 +115,23 @@
 								</button>
 							</div>
 						</div>
+						<div class="text-center p-t-115">
+							<a id="voltar" class="txt2" href="#">
+								Voltar
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div> -->
+		</div>
+
+		<div id="box_sucesso" style="display: none;">
+			<span>Usuário salvo com sucesso</span>
+		</div>
+
+		<div id="box_erro" style="display: none;">
+			<span>Erro ao salvar tente novamente</span>
+		</div>
 	</div>
 	
 

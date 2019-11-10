@@ -16,7 +16,7 @@
 		})    
 	})
 	  
-	var input = $('.validate-input .input100');
+	var input = $('.validate-input .logins');
 	$('#buttonLogin').on('click',function(){
 		var check = true;
 
@@ -47,6 +47,56 @@
 			});
 		} else {
 			return check;
+		}
+	});
+
+	var inputCadastro = $('.validate-input .loginsCadastro');
+	$('#buttonLoginCadastro').on('click',function(){
+		var checkCadastro = true;
+
+		for(var i=0; i<inputCadastro.length; i++) {
+			if(validateCadastro(inputCadastro[i]) == false){
+				showValidate(inputCadastro[i]);
+				checkCadastro=false;
+			}
+		}
+
+		if (checkCadastro) {
+			if ($('#senhaCadastro').val() != $('#senhaCadastroRepeat').val()) {
+				alert('Senhas não conferem');
+			} else {
+				var json = {
+					"email": $("#emailCadastro").val(),
+					"senha": $("#senhaCadastro").val()
+				}
+				$.ajax({
+						type: 'POST',
+						headers:{    
+							'Accept': 'application/json',
+							'Content-Type': 'application/json',
+							'Access-Control-Allow-Origin': '*' ,
+							'Accept' : "application/json",
+							'Content-Type': "application/json"
+						},
+						url: 'http://127.0.0.1:8080/api/user/',		
+						dataType: 'json',	
+						'data': JSON.stringify(json),
+						'complete': function(resp) {							
+							setTimeout(function() {$('#box_sucesso').fadeIn();}, 1000),
+							setTimeout(function() {
+								$('#box_sucesso').fadeOut();
+								$('#initLogin').show();
+								$('#initCadastro').hide();
+							}, 3000)						
+						}, 
+						error: function(resp) {
+							setTimeout(function() {$('#box_erro').fadeIn();}, 1000),
+							setTimeout(function() {$('#box_erro').fadeOut();}, 3000)	
+						}
+					});				
+			}
+		} else {
+			return checkCadastro;
 		}
 	});
 
@@ -92,8 +142,41 @@
 		$('.focus-input100').removeClass('alert-validate');
 	});
 
+	$('#emailCadastro').on('change',function(){
+		 $(this).focus(function(){
+		   hideValidate(this);
+		});
+	});
+
+	$('#senhaCadastro').on('change',function(){ 
+		$('.focus-input100').removeClass('alert-validate');
+	});
+
+	$('#cadastro').on('click',function(){ 
+		$('#initLogin').hide();
+		$('#initCadastro').show();
+	});
+
+	$('#voltar').on('click',function(){ 
+		$('#initLogin').show();
+		$('#initCadastro').hide();
+	});
+
 	function validate (input) {
 		if($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
+			if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
+				return false;
+			}
+		}
+		else {
+			if($(input).val().trim() == ''){
+				return false;
+			}
+		}
+	}
+
+	function validateCadastro (input) {
+		if($(input).attr('type') == 'emailCadastro' || $(input).attr('name') == 'emailCadastro') {
 			if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
 				return false;
 			}

@@ -489,5 +489,35 @@ iframe {
   }
 }
 
+#box_sucesso {
+    height: 58px;
+    background-color: #46C361;
+    width: 400px;
+    position: absolute;
+    top: 56px;
+    right: 20px;
+    z-index: 1;
+    border-radius: 8px;
+    -webkit-box-shadow: 0px 0px 23px 2px #6b6b6b; 
+    -moz-box-shadow: 0px 0px 23px 2px #6b6b6b;
+    box-shadow: 0px 0px 23px 2px #6b6b6b; 
+    padding: 20px;
+}
+
+#box_erro {
+    height: 58px;
+    background-color: #e64444;
+    width: 400px;
+    position: absolute;
+    top: 56px;
+    right: 20px;
+    z-index: 1;
+    border-radius: 8px;
+    -webkit-box-shadow: 0px 0px 23px 2px #6b6b6b; 
+    -moz-box-shadow: 0px 0px 23px 2px #6b6b6b;
+    box-shadow: 0px 0px 23px 2px #6b6b6b; 
+    padding: 20px;
+}
+
 
 
