@@ -12,12 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.user.apirest.model.Carro;
 import com.user.apirest.model.User;
 import com.user.apirest.repository.UserRepository;
 
-//import com.user.repository.*;
-//import com.user.apirest.model.*;
 
 @RestController
 @RequestMapping(value = "/api")
