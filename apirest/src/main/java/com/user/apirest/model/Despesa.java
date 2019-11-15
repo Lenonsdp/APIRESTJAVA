@@ -1,7 +1,10 @@
 package com.user.apirest.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -9,10 +12,14 @@ import javax.persistence.Table;
 @Table(name = "despesa")
 public class Despesa {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	
+	private long idCarro;
 
 	protected float valor;
+
+	@Enumerated(EnumType.STRING)
 	protected TipoDespesa tipo;
 	protected String observacoes;
 
@@ -46,5 +53,13 @@ public class Despesa {
 
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
+	}
+
+	public long getIdCarro() {
+		return idCarro;
+	}
+
+	public void setIdCarro(long idCarro) {
+		this.idCarro = idCarro;
 	}
 }
