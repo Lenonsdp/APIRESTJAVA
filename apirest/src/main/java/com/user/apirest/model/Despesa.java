@@ -1,5 +1,6 @@
 package com.user.apirest.model;
 
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,11 +17,14 @@ public class Despesa {
 	private long id;
 	
 	private long idCarro;
+	
+	private float valor;
 
-	protected float valor;
-
+    private String data;
+	
 	@Enumerated(EnumType.STRING)
 	protected TipoDespesa tipo;
+	
 	protected String observacoes;
 
 	public long getId() {
@@ -61,5 +65,13 @@ public class Despesa {
 
 	public void setIdCarro(long idCarro) {
 		this.idCarro = idCarro;
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
 	}
 }

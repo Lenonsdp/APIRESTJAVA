@@ -95,7 +95,9 @@ h1 {
     width: 250px;
 }
 
-#incluir_pedido {
+#incluir_pedido,
+#incluir_despesa,
+#veiculo_despesa {
     color: #fff;
     cursor: pointer;
     font-size: 8pt;
@@ -107,6 +109,10 @@ h1 {
     border-radius: 4px;
     text-transform: uppercase;
     border: 0;
+}
+
+#veiculo_despesa {
+    margin-bottom: 15px;
 }
 
 #box {
@@ -229,7 +235,8 @@ h1 {
 }
 
 #salvar,
-.cancelar {
+.cancelar,
+#salvar_despesa {
     color: #fff;
     cursor: pointer;
     font-size: 8pt;
@@ -408,4 +415,58 @@ a#sair:hover {
     padding: 10px;
     margin-top: 55px;
     position: absolute;
+}
+
+#automoveis, #despesas {
+    float: left;
+    margin-top: 5px;
+    padding: 0px;
+    margin-left: 15px;
+}
+
+a#automoveis:link {
+    text-decoration: none;
+}
+
+a#automoveis:hover {
+    color: #00A6C9;
+}
+
+#automoveis, #despesas {
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    margin-right: 32px;
+    color: #BBBBBB;
+    font-size: 15px;   
+}
+
+#tabela_despesa {
+    width: 100%;
+    margin-top: 35px;
+    border-collapse: collapse;
+}
+
+#tabela_despesa th {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: left;
+    background-color: #bcbcbc;
+}
+
+#tabela_despesa tr {
+    border: 1px solid #ddd;
+}
+
+#tabela_despesa tbody tr:hover {
+    background-color: white;
+    cursor: pointer;
+}
+#tabela_despesa th,
+#tabela_despesa td {
+    padding: 5px;
+}
+
+#tabela_despesa th {
+    color: #434141;
 }

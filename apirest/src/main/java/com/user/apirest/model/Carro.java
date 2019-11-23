@@ -14,6 +14,7 @@ public class Carro {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	private long idUser;
 	private String descricao;
 	private String placa;
 	private int renavam;
@@ -90,6 +91,12 @@ public class Carro {
 	}
 	public void setPrecoFipe(float precoFipe) {
 		this.precoFipe = precoFipe;
+	}
+	public long getIdUser() {
+		return idUser;
+	}
+	public void setIdUser(long idUser) {
+		this.idUser = idUser;
 	}
 	
 	

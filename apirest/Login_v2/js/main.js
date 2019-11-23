@@ -35,7 +35,7 @@
 					'Content-Type': 'application/json',
 					'Access-Control-Allow-Origin': '*' 
 				},
-				url: 'https://gestaocarro.herokuapp.com/api/user/'+$('#email').val()+'/'+$('#senha').val(),		
+				url: 'http://127.0.0.1:8080/api/user/'+$('#email').val()+'/'+$('#senha').val(),		
 				dataType: 'json',
 				success: function (data) {
 					if (data) {
@@ -78,7 +78,7 @@
 							'Accept' : "application/json",
 							'Content-Type': "application/json"
 						},
-						url: 'https://gestaocarro.herokuapp.com/api/user/',		
+						url: 'http://127.0.0.1:8080/api/user/',		
 						dataType: 'json',	
 						'data': JSON.stringify(json),
 						'complete': function(resp) {							
@@ -120,10 +120,11 @@
 						'Content-Type': 'application/json',
 						'Access-Control-Allow-Origin': '*' 
 					},
-					url: 'https://gestaocarro.herokuapp.com/api/user/'+$('#email').val()+'/'+$('#senha').val(),		
+					url: 'http://127.0.0.1:8080/api/user/'+$('#email').val()+'/'+$('#senha').val(),		
 					dataType: 'json',
 					success: function (data) {
 						if (data) {
+							window.localStorage.setItem('usuario', data.id);
 							window.location.href = 'http://localhost/Login_v2/views/home.html';
 						} else {
 							alert('Usuário ou senha inválidos.');

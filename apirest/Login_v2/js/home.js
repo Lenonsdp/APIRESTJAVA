@@ -32,6 +32,7 @@ $(function() {
 });
 
 function vincularEventos() {
+	console.log('asdasdasd');
 	$('#incluir_pedido').on('click', function() {
 		$('#box_incluir').each(function() {
 			this.reset();
@@ -71,7 +72,7 @@ function vincularEventos() {
 						'Accept' : "application/json",
 						'Content-Type': "application/json"
 					},
-					url: 'https://gestaocarro.herokuapp.com/api/carro/' + listaExcluir,	
+					url: 'http://127.0.0.1:8080/api/carro/' + listaExcluir,	
 					'complete': function() {
 						setTimeout(function() {$('#box_excluir').fadeIn();}, 1000);
 						setTimeout(function() {$('#box_excluir').fadeOut();}, 3000);
@@ -81,6 +82,17 @@ function vincularEventos() {
 			}
 		}
 	});
+
+	$('#sair').on('click', function() {
+		window.localStorage.removeItem('usuario');
+		window.location.href = "http://localhost/Login_v2/index.html"
+	});
+
+	$('#despesas').on('click', function() {
+		window.location.href = "http://localhost/Login_v2/views/despesa.html"
+	});
+
+
 
 	$('#salvar').on('click', function() {
 		var camposObrigatorios = ['#descricao', '#placa'];
@@ -103,7 +115,8 @@ function vincularEventos() {
 				"km": $("#km").val(),
 				"marca": $("#marca").val(),
 				"preco": $("#preco").val(),
-				"preco_fipe": $("#preco_fipe").val()
+				"preco_fipe": $("#preco_fipe").val(),
+				"idUser": window.localStorage.getItem('usuario')
 			}
 			if (idAutomovel) {
 				$.ajax({
@@ -115,7 +128,7 @@ function vincularEventos() {
 						'Accept' : "application/json",
 						'Content-Type': "application/json"
 					},
-					url: 'https://gestaocarro.herokuapp.com/api/carro/' + idAutomovel,		
+					url: 'http://127.0.0.1:8080/api/carro/' + idAutomovel,		
 					dataType: 'json',	
 					'data': JSON.stringify(json),
 					'complete': function(resp) {
@@ -140,11 +153,10 @@ function vincularEventos() {
 						'Accept' : "application/json",
 						'Content-Type': "application/json"
 					},
-					url: 'https://gestaocarro.herokuapp.com/api/carro/',		
+					url: 'http://127.0.0.1:8080/api/carro/',		
 					dataType: 'json',	
 					'data': JSON.stringify(json),
 					'complete': function(resp) {
-						console.log(resp);
 						$('#box').show(),
 						$('#box_incluir').hide(),
 						$('#coluna_acoes_lista').show(),
@@ -152,7 +164,6 @@ function vincularEventos() {
 						setTimeout(function() {$('#box_sucesso').fadeIn();}, 1000);
 						setTimeout(function() {$('#box_sucesso').fadeOut();}, 3000);
 						listar();
-						window.location.hash = '';
 					}
 				});
 			}
@@ -260,7 +271,7 @@ function listar() {
 			'Content-Type': 'application/json',
 			'Access-Control-Allow-Origin': '*' 
 		},
-		url: 'https://gestaocarro.herokuapp.com/api/carros/',		
+		url: 'http://127.0.0.1:8080/api/carros/' + window.localStorage.getItem('usuario'),		
 		dataType: 'json',		
 		'success': function(resp) {
 			console.log(resp);
@@ -312,18 +323,18 @@ function obterDadosAutomovel(idAutomovel) {
 			'Content-Type': 'application/json',
 			'Access-Control-Allow-Origin': '*' 
 		},
-		url: 'https://gestaocarro.herokuapp.com/api/carro/' + idAutomovel,
+		url: 'http://127.0.0.1:8080/api/carro/' + idAutomovel,
 		success: function(automovel) {
 			$('#descricao').val(automovel.descricao);
 			$('#placa').val(automovel.placa);
 			$('#renavam').val(automovel.renavam);
 			$('#ano_modelo').val(automovel.anoModelo);
-			$('#ano_fabricacao').val(automovel.anofabricacao); //camelcase
+			$('#ano_fabricacao').val(automovel.anoFabricacao); //camelcase
 			$('#cor').val(automovel.cor);
 			$('#km').val(automovel.km);
 			$('#marca').val(automovel.marca);
-			$('#preco').val(automovel.preco);
-			$('#preco_fipe').val(automovel.preco_fipe);
+			$('#preco').val(automovel.preco.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+			$('#preco_fipe').val(automovel.preco_fipe.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
 		}
 	});
 }

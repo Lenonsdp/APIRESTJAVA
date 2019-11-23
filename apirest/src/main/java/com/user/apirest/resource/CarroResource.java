@@ -26,9 +26,9 @@ public class CarroResource {
 	CarroRepository carroRepository;
 
 	@CrossOrigin
-	@GetMapping("/carros")
-	public List<Carro> GetAll() {
-		return carroRepository.findAll();
+	@GetMapping("/carros/{idUser}")
+	public List<Carro> GetAllCarro(@PathVariable(value = "idUser") Long idUser) {
+		return carroRepository.findByIdUser(idUser);
 	}
 
 	@CrossOrigin
