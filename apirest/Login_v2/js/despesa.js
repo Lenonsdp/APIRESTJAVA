@@ -24,6 +24,8 @@ function vincularEventos() {
 	$('#veiculo_despesa').on('click', function() {
 		if ($('#veiculo_despesa').val() != '') {
 			listar();
+		} else {
+			$('#tabela_despesa tbody').empty();
 		}
 	});
 	
@@ -38,7 +40,6 @@ function vincularEventos() {
 			url: 'http://127.0.0.1:8080/api/carros/' + window.localStorage.getItem('usuario'),		
 			dataType: 'json',		
 			'success': function(resp) {
-				console.log(resp);
 				$.each(resp, function(i, resp) {
 					$('#veiculo_despesa').append($('<option>', { 
 						value: resp.id,
@@ -50,6 +51,9 @@ function vincularEventos() {
 	});
 
 	$('#incluir_despesa').on('click', function() {
+		$('#box_incluirDespesa').each(function() {
+			this.reset();
+		});
 		$('#salvar_despesa').val('Salvar');
 		if ($('#veiculo_despesa').val() == '') {
 			alert('Selecione um veiculo para lançar uma despesa');
@@ -69,9 +73,9 @@ function vincularEventos() {
 
 		if ($('#valor').val().trim() != '' && $('#data').val() != '') {
 			var valor = $("#valor").val();
-			console.log(valor.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."));
+			valor = valor.toString().replace('R$', '');
 			var json = {
-				"valor": valor.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."),
+				"valor": parseFloat(valor),
 				"data": $("#data").val(),
 				"observacoes": $("#observacoes").val(),
 				"tipo": $("#tipo").val(),
@@ -151,6 +155,37 @@ function vincularEventos() {
 		listar();
 		window.location.hash = '';
 	});
+
+	$('#excluir').on('click', function() {
+		if (confirm('Deseja realmente excluir?')) {
+			var listaExcluir =  '';
+
+			$('#tabela_despesa tbody input:checkbox:checked').each(function() {
+				listaExcluir = ($(this).parents('tr').attr('data-id'));
+			});
+
+			if (!listaExcluir.length) {
+				alert('Selecione alguma despesa para exclusão');
+			} else {
+				$.ajax({
+					type: 'DELETE',
+					headers:{    
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+						'Access-Control-Allow-Origin': '*' ,
+						'Accept' : "application/json",
+						'Content-Type': "application/json"
+					},
+					url: 'http://127.0.0.1:8080/api/despesa/' + listaExcluir,	
+					'complete': function() {
+						// setTimeout(function() {$('#box_excluir').fadeIn();}, 1000);
+						// setTimeout(function() {$('#box_excluir').fadeOut();}, 3000);
+						listar();
+					}
+				});
+			}
+		}
+	});
 }
 
 function listar() {
@@ -178,8 +213,10 @@ function editarDespesa(id) {
 
 function mostrarDadosTabela(despesas) {
 	$('#tabela_despesa tbody').empty();
-	
+	var totalDespesa = 0;
+
 	$.each(despesas, function(key, despesas) {
+		totalDespesa += despesas.valor;
 		$('#tabela_despesa tbody').append(
 			$('<tr>', {'data-id': despesas.id}).append(
 				$('<td>').append(
@@ -191,6 +228,9 @@ function mostrarDadosTabela(despesas) {
 			)
 		);                        
 	});
+
+	$('#valorTotal').val(totalDespesa.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+
 };
 
 function obterIdUrl() {
