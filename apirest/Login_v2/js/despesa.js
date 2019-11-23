@@ -5,6 +5,7 @@ $(function() {
 	vincularEventos();
 
 	var idDespesa = obterIdUrl();
+	console.log(idDespesa);
 	if (idDespesa != false) {
 		editarDespesa(idDespesa);
 		$('#salvar').val('Editar');
@@ -37,7 +38,7 @@ function vincularEventos() {
 				'Content-Type': 'application/json',
 				'Access-Control-Allow-Origin': '*' 
 			},
-			url: 'http://127.0.0.1:8080/api/carros/' + window.localStorage.getItem('usuario'),		
+			url: 'https://gestaocarro.herokuapp.com/api/carros/' + window.localStorage.getItem('usuario'),		
 			dataType: 'json',		
 			'success': function(resp) {
 				$.each(resp, function(i, resp) {
@@ -91,7 +92,7 @@ function vincularEventos() {
 						'Accept' : "application/json",
 						'Content-Type': "application/json"
 					},
-					url: 'http://127.0.0.1:8080/api/despesa/' + idDespesa,		
+					url: 'https://gestaocarro.herokuapp.com/api/despesa/' + idDespesa,		
 					dataType: 'json',	
 					'data': JSON.stringify(json),
 					'complete': function(resp) {
@@ -115,7 +116,7 @@ function vincularEventos() {
 						'Accept' : "application/json",
 						'Content-Type': "application/json"
 					},
-					url: 'http://127.0.0.1:8080/api/despesa/',		
+					url: 'https://gestaocarro.herokuapp.com/api/despesa/',		
 					dataType: 'json',	
 					'data': JSON.stringify(json),
 					'complete': function(resp) {
@@ -176,7 +177,7 @@ function vincularEventos() {
 						'Accept' : "application/json",
 						'Content-Type': "application/json"
 					},
-					url: 'http://127.0.0.1:8080/api/despesa/' + listaExcluir,	
+					url: 'https://gestaocarro.herokuapp.com/api/despesa/' + listaExcluir,	
 					'complete': function() {
 						// setTimeout(function() {$('#box_excluir').fadeIn();}, 1000);
 						// setTimeout(function() {$('#box_excluir').fadeOut();}, 3000);
@@ -196,7 +197,7 @@ function listar() {
 			'Content-Type': 'application/json',
 			'Access-Control-Allow-Origin': '*' 
 		},
-		url: 'http://127.0.0.1:8080/api/despesas/' + $('#veiculo_despesa').val(),		
+		url: 'https://gestaocarro.herokuapp.com/api/despesas/' + $('#veiculo_despesa').val(),		
 		dataType: 'json',		
 		'success': function(resp) {
 			console.log(resp);
@@ -253,7 +254,7 @@ function obterDadosDespesa(idDespesa) {
 			'Content-Type': 'application/json',
 			'Access-Control-Allow-Origin': '*' 
 		},
-		url: 'http://127.0.0.1:8080/api/despesa/' + idDespesa,
+		url: 'https://gestaocarro.herokuapp.com/api/despesa/' + idDespesa,
 		success: function(despesa) {
 			$('#tipo').val(despesa.tipo);
 			$('#observacoes').val(despesa.observacoes);
