@@ -20,12 +20,14 @@ public class Despesa {
 	
 	private float valor;
 
-    private String data;
+//    private String data;
+    
+	private java.sql.Date data;
 	
 	@Enumerated(EnumType.STRING)
-	protected TipoDespesa tipo;
+	private TipoDespesa tipo;
 	
-	protected String observacoes;
+	private String observacoes;
 
 	public long getId() {
 		return id;
@@ -67,11 +69,12 @@ public class Despesa {
 		this.idCarro = idCarro;
 	}
 
-	public String getData() {
+	public java.sql.Date getData() {
 		return data;
 	}
 
-	public void setData(String data) {
+	public void setData(java.sql.Date data) {
 		this.data = data;
 	}
+
 }
